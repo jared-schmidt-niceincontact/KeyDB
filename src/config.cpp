@@ -259,7 +259,7 @@ typedef struct standardConfig {
     typeData data; /* The type specific data exposed used by the interface */
 } standardConfig;
 
-#define MODIFIABLE_CONFIG 0 /* This is the implied default for a standard 
+#define MODIFIABLE_CONFIG 0 /* This is the implied default for a standard
                              * config, which is mutable. */
 #define IMMUTABLE_CONFIG (1ULL<<0) /* Can this value only be set at startup? */
 #define SENSITIVE_CONFIG (1ULL<<1) /* Does this value contain sensitive information */
@@ -447,7 +447,7 @@ static int updateOOMScoreAdjValues(sds *args, const char **err, int apply) {
         old_values[i] = g_pserver->oom_score_adj_values[i];
         g_pserver->oom_score_adj_values[i] = values[i];
     }
-    
+
     /* When parsing the config file, we want to apply only when all is done. */
     if (!apply)
         return C_OK;
@@ -898,7 +898,7 @@ void configSetCommand(client *c) {
 
     /* Iterate the configs that are standard */
     for (standardConfig *config = configs; config->name != NULL; config++) {
-        if (!(config->flags & IMMUTABLE_CONFIG) && 
+        if (!(config->flags & IMMUTABLE_CONFIG) &&
             (!strcasecmp(szFromObj(c->argv[2]),config->name) ||
             (config->alias && !strcasecmp(szFromObj(c->argv[2]),config->alias))))
         {
@@ -1422,7 +1422,7 @@ struct rewriteConfigState *rewriteConfigReadOldFile(char *path) {
             sdsfree(argv[0]);
             argv[0] = alt;
         }
-        /* If this is sentinel config, we use sentinel "sentinel <config>" as option 
+        /* If this is sentinel config, we use sentinel "sentinel <config>" as option
             to avoid messing up the sequence. */
         if (g_pserver->sentinel_mode && argc > 1 && !strcasecmp(argv[0],"sentinel")) {
             sds sentinelOption = sdsempty();
@@ -2596,7 +2596,7 @@ static int updateMaxclients(long long val, long long prev, const char **err) {
             }
             return 0;
         }
-        /* Change the SetSize for the current thread first. If any error, return the error message to the client, 
+        /* Change the SetSize for the current thread first. If any error, return the error message to the client,
          * otherwise, continue to do the same for other threads */
         if ((unsigned int) aeGetSetSize(aeGetCurrentEventLoop()) <
             g_pserver->maxclients + CONFIG_FDSET_INCR)
@@ -2811,6 +2811,7 @@ standardConfig configs[] = {
     createStringConfig("storage-provider-options", NULL, IMMUTABLE_CONFIG, EMPTY_STRING_IS_NULL, cserver.storage_conf, NULL, NULL, NULL),
     createStringConfig("ignore-warnings", NULL, MODIFIABLE_CONFIG, ALLOW_EMPTY_STRING, g_pserver->ignore_warnings, "", NULL, NULL),
     createStringConfig("proc-title-template", NULL, MODIFIABLE_CONFIG, ALLOW_EMPTY_STRING, cserver.proc_title_template, CONFIG_DEFAULT_PROC_TITLE_TEMPLATE, isValidProcTitleTemplate, updateProcTitleTemplate),
+    createStringConfig("db-s3-object", NULL, MODIFIABLE_CONFIG, EMPTY_STRING_IS_NULL, g_pserver->rdb_s3bucketpath, NULL, NULL, NULL),
 
     /* SDS Configs */
     createSDSConfig("masterauth", NULL, MODIFIABLE_CONFIG | SENSITIVE_CONFIG, EMPTY_STRING_IS_NULL, cserver.default_masterauth, NULL, NULL, updateMasterAuthConfig),

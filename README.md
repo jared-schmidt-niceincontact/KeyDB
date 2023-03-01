@@ -2,9 +2,9 @@
 ![CI](https://github.com/JohnSully/KeyDB/workflows/CI/badge.svg?branch=unstable)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/eq-alpha-technology-inc/eq-alpha-technology-inc)
 
-##### KeyDB is now a part of Snap Inc! Check out the announcement [here](https://docs.keydb.dev/news/2022/05/12/keydb-joins-snap) 
+##### KeyDB is now a part of Snap Inc! Check out the announcement [here](https://docs.keydb.dev/news/2022/05/12/keydb-joins-snap)
 
-##### [Release v6.3.0](https://github.com/EQ-Alpha/KeyDB/releases/tag/v6.3.0) is here with major improvements as we consolidate our Open Source and Enterprise offerings into a single BSD-3 licensed project. See our [roadmap](https://docs.keydb.dev/docs/coming-soon) for details. 
+##### [Release v6.3.0](https://github.com/EQ-Alpha/KeyDB/releases/tag/v6.3.0) is here with major improvements as we consolidate our Open Source and Enterprise offerings into a single BSD-3 licensed project. See our [roadmap](https://docs.keydb.dev/docs/coming-soon) for details.
 
 ##### Want to extend KeyDB with Javascript?  Try [ModJS](https://github.com/JohnSully/ModJS)
 
@@ -99,15 +99,15 @@ Avoid forwarding RREPLAY messages to other masters? WARNING: This setting is dan
 
 
 ```
-    db-s3-object /path/to/bucket
+    db-s3-object s3://bucket/path/to/object
 ```
-If you would like KeyDB to dump and load directly to AWS S3 this option specifies the bucket.  Using this option with the traditional RDB options will result in KeyDB backing up twice to both locations.  If both are specified KeyDB will first attempt to load from the local dump file and if that fails load from S3.  This requires the AWS CLI tools to be installed and configured which are used under the hood to transfer the data.
+If you would like KeyDB to dump and load directly to AWS S3 this option specifies the bucket and object.  Using this option with the traditional RDB options will result in KeyDB backing up twice to both locations.  If both are specified KeyDB will first attempt to load from the local dump file and if that fails load from S3.  This requires the AWS CLI tools to be installed and configured which are used under the hood to transfer the data.
 
 
 ```
 storage-provider flash /path/to/flash
 ```
-If you would like to use KeyDB FLASH storage, specify the storage medium followed by the directory path on your local SSD volume. Note that this feature is still considered experimental and should be used with discretion. See [FLASH Documentation](https://docs.keydb.dev/docs/flash) for more details on configuration and setting up your FLASH volume. 
+If you would like to use KeyDB FLASH storage, specify the storage medium followed by the directory path on your local SSD volume. Note that this feature is still considered experimental and should be used with discretion. See [FLASH Documentation](https://docs.keydb.dev/docs/flash) for more details on configuration and setting up your FLASH volume.
 
 
 Building KeyDB
@@ -129,7 +129,7 @@ Compiling is as simple as:
 
     % make
 
-To build with systemd support, you'll need systemd development libraries (such 
+To build with systemd support, you'll need systemd development libraries (such
 as libsystemd-dev on Debian/Ubuntu or systemd-devel on CentOS) and run:
 
     % make USE_SYSTEMD=yes
@@ -138,7 +138,7 @@ To append a suffix to KeyDB program names, use:
 
     % make PROG_SUFFIX="-alt"
 
-***Note that the following dependencies may be needed: 
+***Note that the following dependencies may be needed:
     % sudo apt-get install autoconf autotools-dev libnuma-dev libtool
 
 KeyDB by default is built with TLS enabled. To build without TLS support, use:
@@ -214,7 +214,7 @@ Monotonic clock
 
 By default, KeyDB will build using the POSIX clock_gettime function as the
 monotonic clock source.  On most modern systems, the internal processor clock
-can be used to improve performance.  Cautions can be found here: 
+can be used to improve performance.  Cautions can be found here:
     http://oliveryang.net/2015/09/pitfalls-of-TSC-usage/
 
 To build with support for the processor's internal instruction clock, use:
